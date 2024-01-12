@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Callable
 
 import numpy as np
+from halfspace import Model
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.preprocessing import StandardScaler
 from sklearn.utils.validation import check_scalar
@@ -11,21 +12,36 @@ from sklearn.utils.validation import check_scalar
 class SparseLinearRegressor(BaseEstimator, RegressorMixin):
     """Sparse linear regressor."""
 
-    def __init__(self, max_features: Optional[int], gamma: Optional[float] = None, normalize: bool = True):
+    def __init__(
+            self,
+            max_selected_features: Optional[int],
+            gamma: Optional[float] = None,
+            normalize: bool = True,
+            max_iters: int = 500,
+            tol: float = 1e-4,
+            verbose: bool = False,
+    ):
         """Model constructor.
 
         Args:
-            max_features: int or `None`, default=`None`
+            max_selected_features: int or `None`, default=`None`
                 The maximum number of features with non-zero coefficients. If `None`, then `max_features` is set to
                 the square root of the number of features, rounded up to the nearest integer.
             gamma: float or `None`, default=`None`
                 The regularization parameter. If `None`, then `gamma` is set to `1 / sqrt(n_samples)`.
             normalize: bool, default=`True`
                 Whether to normalize the data before fitting the model.
+            max_iters: int, default=`500`
+                The maximum number of iterations.
+            tol: float, default=`1e-4`
+                The tolerance for the stopping criterion.
         """
-        self.max_features = max_features
+        self.max_selected_features = max_selected_features
         self.gamma = gamma
         self.normalize = normalize
+        self.max_iters = max_iters
+        self.tol = tol
+        self.verbose = verbose
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> SparseLinearRegressor:
         """Fit the regressor to the training data.
@@ -38,15 +54,30 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         Returns: SparseLinearRegressor
             The fitted regressor.
         """
+        # Perform validation checks
         self._validate_data(X=X, y=y)
         self._validate_params()
+
+        # Pre-process training data
         if self.normalize:
             self.scaler_X_ = StandardScaler()
             self.scaler_y_ = StandardScaler()
             X = self.scaler_X_.fit_transform(X)
             y = self.scaler_y_.fit_transform(y[:, None])[:, 0]
-        # Fitting algorithm here
+
+        # Optimize feature selection
+        model = Model(max_gap=self.tol, max_gap_abs=self.tol, log_freq=1 if self.verbose else None)
+        selected = model.add_var_tensor(shape=(X.shape[1],), var_type="B", name="selected")
+        func, grad = self._make_callbacks(X=X, y=y)
+        model.add_objective_term(var=selected, func=func, grad=grad)
+        model.add_linear_constr(sum(selected) <= self.max_selected_features)
+        model.optimize()
+        selected = np.round([var.x for var in selected]).astype(bool)
+
+        # Compute coefficients
         self.coef_ = np.zeros(self.n_features_in_)
+        self.coef_[selected] = self._compute_coef_for_subset(X_subset=X[:, selected], y=y)
+
         return self
 
     def predict(self, X: np.ndarray) -> np.ndarray:
@@ -67,9 +98,23 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
             predicted = self.scaler_y_.inverse_transform(predicted[:, None])[:, 0]
         return predicted
 
+    @property
+    def coef(self) -> np.ndarray:
+        """Get the coefficients of the linear model."""
+        if self.normalize:
+            return self.coef_ / self.scaler_X_.scale_ * self.scaler_y_.scale_
+        return self.coef_
+
+    @property
+    def intercept(self) -> float:
+        """Get the intercept of the linear model."""
+        if self.normalize:
+            return -self.scaler_X_.mean_ / self.scaler_X_.scale_ * self.scaler_y_.scale_ + self.scaler_y_.mean_
+        return 0
+
     def _validate_params(self):
         check_scalar(
-            x=self.max_features,
+            x=self.max_selected_features,
             name="max_features",
             target_type=int,
             min_val=1,
@@ -89,17 +134,26 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
             target_type=bool,
         )
 
-    @property
-    def coef(self) -> np.ndarray:
-        """Get the coefficients of the linear model."""
-        if self.normalize:
-            return self.coef_ / self.scaler_X_.scale_ * self.scaler_y_.scale_
-        return self.coef_
+    def _make_callbacks(
+            self,
+            X: np.ndarray,
+            y: np.ndarray,
+    ) -> tuple[Callable[[np.ndarray], float], Callable[[np.ndarray], np.ndarray]]:
 
-    @property
-    def intercept(self) -> float:
-        """Get the intercept of the linear model."""
-        if self.normalize:
-            return -self.scaler_X_.mean_ / self.scaler_X_.scale_ * self.scaler_y_.scale_ + self.scaler_y_.mean_
-        return 0
+        def func(selected: np.ndarray) -> float:
+            X_subset = X[:, np.round(selected).astype(bool)]
+            coef = self._compute_coef_for_subset(X_subset=X_subset, y=y)
+            return 0.5 * np.dot(y, y - np.matmul(X_subset, coef))
 
+        def grad(selected: np.ndarray) -> np.ndarray:
+            X_subset = X[:, np.round(selected).astype(bool)]
+            coef = self._compute_coef_for_subset(X_subset=X_subset, y=y)
+            return -self.gamma / 2 * np.matmul(X.T, y - np.matmul(X_subset, coef)) ** 2
+
+        return func, grad
+
+    def _compute_coef_for_subset(self, X_subset: np.ndarray, y) -> np.ndarray:
+        return np.matmul(
+            np.linalg.inv(1 / self.gamma * np.eye(X_subset.shape[1]) + np.matmul(X_subset.T, X_subset)),
+            np.matmul(X_subset.T, y)
+        )
