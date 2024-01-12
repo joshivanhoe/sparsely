@@ -1,0 +1,21 @@
+[project]
+name = "sparsely"
+version = "0.0.1"
+authors = [
+  { name="Joshua Ivanhoe", email="joshua.k.ivanhoe@gmail.com" },
+]
+description = "Scalable sparse linear regression"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+   "scikit-learn>=1.3.2"
+]
+
+[project.urls]
+Homepage = "https://github.com/joshivanhoe/halfspace"
+Issues = "https://github.com/joshivanhoe/halfspace/issues"
