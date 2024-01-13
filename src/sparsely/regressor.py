@@ -14,7 +14,7 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
 
     def __init__(
         self,
-        max_selected_features: Optional[int] = None,
+        k: Optional[int] = None,
         gamma: Optional[float] = None,
         normalize: bool = True,
         max_iters: int = 500,
@@ -24,9 +24,9 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         """Model constructor.
 
         Args:
-            max_selected_features: int or `None`, default=`None`
-                The maximum number of features with non-zero coefficients. If `None`, then `max_features` is set to
-                the square root of the number of features, rounded to the nearest integer.
+            k: int or `None`, default=`None`
+                The sparsity parameter (i.e. number of non-zero coefficients). If `None`, then `k` is set to the
+                square root of the number of features, rounded to the nearest integer.
             gamma: float or `None`, default=`None`
                 The regularization parameter. If `None`, then `gamma` is set to `1 / sqrt(n_samples)`.
             normalize: bool, default=`True`
@@ -38,7 +38,7 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
             verbose: bool, default=`False`
                 Whether to enable logging of the search progress.
         """
-        self.max_selected_features = max_selected_features
+        self.k = k
         self.gamma = gamma
         self.normalize = normalize
         self.max_iters = max_iters
@@ -61,9 +61,7 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         self._validate_params()
 
         # Set hyperparameters to default values if not specified
-        self.max_selected_features_ = self.max_selected_features or int(
-            np.sqrt(X.shape[1])
-        )
+        self.k_ = self.k or int(np.sqrt(X.shape[1]))
         self.gamma_ = self.gamma or 1 / np.sqrt(X.shape[0])
 
         # Pre-process training data
@@ -82,7 +80,7 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         )
         func, grad = self._make_callbacks(X=X, y=y)
         model.add_objective_term(var=selected, func=func, grad=grad)
-        model.add_linear_constr(sum(selected) <= self.max_selected_features_)
+        model.add_linear_constr(sum(selected) <= self.k_)
         model.optimize()
         selected = np.round([var.x for var in selected]).astype(bool)
 
@@ -133,9 +131,9 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         return 0
 
     def _validate_params(self):
-        if self.max_selected_features is not None:
+        if self.k is not None:
             check_scalar(
-                x=self.max_selected_features,
+                x=self.k,
                 name="max_features",
                 target_type=int,
                 min_val=1,
