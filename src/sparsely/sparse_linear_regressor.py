@@ -28,7 +28,7 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
                 The maximum number of features with non-zero coefficients. If `None`, then `max_features` is set to
                 the square root of the number of features, rounded to the nearest integer.
             gamma: float or `None`, default=`None`
-                The regularization parameter. If `None`, then `gamma` is set to `max_selected_features / n_samples`.
+                The regularization parameter. If `None`, then `gamma` is set to `1 / sqrt(n_samples)`.
             normalize: bool, default=`True`
                 Whether to normalize the data before fitting the model.
             max_iters: int, default=`500`
@@ -64,7 +64,7 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         self.max_selected_features_ = self.max_selected_features or int(
             np.sqrt(X.shape[1])
         )
-        self.gamma_ = self.gamma or self.max_selected_features_ / X.shape[0]
+        self.gamma_ = self.gamma or 1 / np.sqrt(X.shape[0])
 
         # Pre-process training data
         if self.normalize:
