@@ -17,5 +17,5 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/joshivanhoe/halfspace"
-Issues = "https://github.com/joshivanhoe/halfspace/issues"
+Homepage = "https://github.com/joshivanhoe/sparsely"
+Issues = "https://github.com/joshivanhoe/sparsely/issues"

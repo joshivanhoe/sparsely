@@ -13,13 +13,13 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
     """Sparse linear regressor."""
 
     def __init__(
-            self,
-            max_selected_features: Optional[int] = None,
-            gamma: Optional[float] = None,
-            normalize: bool = True,
-            max_iters: int = 500,
-            tol: float = 1e-4,
-            verbose: bool = False,
+        self,
+        max_selected_features: Optional[int] = None,
+        gamma: Optional[float] = None,
+        normalize: bool = True,
+        max_iters: int = 500,
+        tol: float = 1e-4,
+        verbose: bool = False,
     ):
         """Model constructor.
 
@@ -35,6 +35,8 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
                 The maximum number of iterations.
             tol: float, default=`1e-4`
                 The tolerance for the stopping criterion.
+            verbose: bool, default=`False`
+                Whether to enable logging of the search progress.
         """
         self.max_selected_features = max_selected_features
         self.gamma = gamma
@@ -59,7 +61,9 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         self._validate_params()
 
         # Set hyperparameters to default values if not specified
-        self.max_selected_features_ = self.max_selected_features or int(np.sqrt(X.shape[1]))
+        self.max_selected_features_ = self.max_selected_features or int(
+            np.sqrt(X.shape[1])
+        )
         self.gamma_ = self.gamma or 1 / np.sqrt(X.shape[0])
 
         # Pre-process training data
@@ -70,8 +74,12 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
             y = self.scaler_y_.fit_transform(y[:, None])[:, 0]
 
         # Optimize feature selection
-        model = Model(max_gap=self.tol, max_gap_abs=self.tol, log_freq=1 if self.verbose else None)
-        selected = model.add_var_tensor(shape=(X.shape[1],), var_type="B", name="selected")
+        model = Model(
+            max_gap=self.tol, max_gap_abs=self.tol, log_freq=1 if self.verbose else None
+        )
+        selected = model.add_var_tensor(
+            shape=(X.shape[1],), var_type="B", name="selected"
+        )
         func, grad = self._make_callbacks(X=X, y=y)
         model.add_objective_term(var=selected, func=func, grad=grad)
         model.add_linear_constr(sum(selected) <= self.max_selected_features_)
@@ -80,7 +88,9 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
 
         # Compute coefficients
         self.coef_ = np.zeros(self.n_features_in_)
-        self.coef_[selected] = self._compute_coef_for_subset(X_subset=X[:, selected], y=y)
+        self.coef_[selected] = self._compute_coef_for_subset(
+            X_subset=X[:, selected], y=y
+        )
 
         return self
 
@@ -116,7 +126,10 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         """Get the intercept of the linear model."""
         check_is_fitted(estimator=self)
         if self.normalize:
-            return -self.scaler_X_.mean_ / self.scaler_X_.scale_ * self.scaler_y_.scale_ + self.scaler_y_.mean_
+            return (
+                -self.scaler_X_.mean_ / self.scaler_X_.scale_ * self.scaler_y_.scale_
+                + self.scaler_y_.mean_
+            )
         return 0
 
     def _validate_params(self):
@@ -144,11 +157,10 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         )
 
     def _make_callbacks(
-            self,
-            X: np.ndarray,
-            y: np.ndarray,
+        self,
+        X: np.ndarray,
+        y: np.ndarray,
     ) -> tuple[Callable[[np.ndarray], float], Callable[[np.ndarray], np.ndarray]]:
-
         def func(selected: np.ndarray) -> float:
             X_subset = X[:, np.round(selected).astype(bool)]
             coef = self._compute_coef_for_subset(X_subset=X_subset, y=y)
@@ -157,12 +169,17 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         def grad(selected: np.ndarray) -> np.ndarray:
             X_subset = X[:, np.round(selected).astype(bool)]
             coef = self._compute_coef_for_subset(X_subset=X_subset, y=y)
-            return -0.5 * self.gamma_ * np.matmul(X.T, y - np.matmul(X_subset, coef)) ** 2
+            return (
+                -0.5 * self.gamma_ * np.matmul(X.T, y - np.matmul(X_subset, coef)) ** 2
+            )
 
         return func, grad
 
     def _compute_coef_for_subset(self, X_subset: np.ndarray, y) -> np.ndarray:
         return np.matmul(
-            np.linalg.inv(1 / self.gamma_ * np.eye(X_subset.shape[1]) + np.matmul(X_subset.T, X_subset)),
-            np.matmul(X_subset.T, y)
+            np.linalg.inv(
+                1 / self.gamma_ * np.eye(X_subset.shape[1])
+                + np.matmul(X_subset.T, X_subset)
+            ),
+            np.matmul(X_subset.T, y),
         )

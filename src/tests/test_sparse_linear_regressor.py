@@ -15,7 +15,7 @@ def dataset() -> Dataset:
         n_samples=500,
         n_features=10,
         n_informative=3,
-        noise=0.,
+        noise=0.0,
         random_state=0,
         coef=True,
     )
@@ -34,7 +34,7 @@ def test_sklearn_compatibility():
         SparseLinearRegressor(normalize=False),
         SparseLinearRegressor(max_selected_features=3),
         SparseLinearRegressor(gamma=1e-2),
-    ]
+    ],
 )
 def test_sparse_linear_regressor(dataset: Dataset, estimator: SparseLinearRegressor):
     X_train, X_test, y_train, y_test, coef = dataset
@@ -44,8 +44,9 @@ def test_sparse_linear_regressor(dataset: Dataset, estimator: SparseLinearRegres
     assert estimator.score(X_train, y_train) > 0.8
     assert estimator.score(X_test, y_test) > 0.8
     assert (np.isclose(estimator.coef_, 0) == np.isclose(coef, 0)).all(), (
-            np.argwhere(~np.isclose(estimator.coef_, 0)).flatten(), np.argwhere(~np.isclose(coef, 0)).flatten(),
-            estimator.coef_
+        np.argwhere(~np.isclose(estimator.coef_, 0)).flatten(),
+        np.argwhere(~np.isclose(coef, 0)).flatten(),
+        estimator.coef_,
     )
 
 
@@ -55,9 +56,11 @@ def test_sparse_linear_regressor(dataset: Dataset, estimator: SparseLinearRegres
         SparseLinearRegressor(max_selected_features=0),
         SparseLinearRegressor(max_selected_features=11),
         SparseLinearRegressor(gamma=-1e-2),
-    ]
+    ],
 )
-def test_sparse_linear_regressor_invalid_params(dataset: Dataset, estimator: SparseLinearRegressor):
+def test_sparse_linear_regressor_invalid_params(
+    dataset: Dataset, estimator: SparseLinearRegressor
+):
     X_train, X_test, y_train, y_test, coef = dataset
     with pytest.raises(ValueError):
         estimator.fit(X_train, y_train)
