@@ -102,7 +102,6 @@ def tune_estimator(
     for k in tqdm(
         range(k_min, k_max or X.shape[0], step_size), disable=not show_progress_bar
     ):
-
         # Perform cross-validation
         output = cross_validate(
             estimator=deepcopy(estimator).set_params(k=k),
@@ -110,6 +109,7 @@ def tune_estimator(
             y=y,
             cv=cv,
             scoring="r2",
+            n_jobs=1,
         )
 
         # Update search and check early termination condition
