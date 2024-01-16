@@ -166,6 +166,7 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
 
         def grad(selected: np.ndarray) -> np.ndarray:
             X_subset = X[:, np.round(selected).astype(bool)]
+            # TODO: remove redundant computation of subset coef for gradient
             coef = self._compute_coef_for_subset(X_subset=X_subset, y=y)
             return (
                 -0.5 * self.gamma_ * np.matmul(X.T, y - np.matmul(X_subset, coef)) ** 2
