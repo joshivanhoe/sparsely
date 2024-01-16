@@ -83,7 +83,6 @@ class SparseLinearRegressor(BaseEstimator, RegressorMixin):
         model.add_linear_constr(sum(selected) <= self.k_)
         model.optimize()
         selected = np.round([model.var_value(var) for var in selected]).astype(bool)
-        model.reset()
 
         # Compute coefficients
         self.coef_ = np.zeros(self.n_features_in_)

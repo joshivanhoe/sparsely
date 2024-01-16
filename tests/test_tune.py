@@ -23,7 +23,7 @@ def test_tune_estimator(
     if return_search_log:
         estimator, search_log = output
         assert isinstance(search_log, pd.DataFrame)
-        assert search_log.columns == ["k", "score", "std"]
+        assert (search_log.columns == ["k", "score", "std"]).all()
         if max_iters_no_improvement is None:
             assert len(search_log) == 5
         else:

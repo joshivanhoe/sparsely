@@ -100,7 +100,8 @@ def tune_estimator(
     search_log = list()
 
     for k in tqdm(
-        range(k_min, k_max or X.shape[0], step_size), disable=not show_progress_bar
+        range(k_min, (k_max or X.shape[1]) + 1, step_size),
+        disable=not show_progress_bar,
     ):
         # Perform cross-validation
         output = cross_validate(
