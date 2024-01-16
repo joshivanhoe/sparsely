@@ -1,6 +1,5 @@
 # `sparsely`
-`sparsely` is a `sklearn`-compatible Python module for sparse linear regression.
-It uses a cutting plane algorithm that scales to thousands samples and features.
+`sparsely` is a `sklearn`-compatible Python module for sparse linear regression. It uses a cutting plane algorithm that scales to thousands samples and features.
 This implementation follows [Bertsimas & Van Parys (2017)](https://arxiv.org/pdf/1709.10029.pdf).
 
 ## Quick start
@@ -21,7 +20,7 @@ from sparsely import SparseLinearRegressor
 X,y = make_regression(n_samples=1000, n_features=100, n_informative=10, random_state=0)
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
-estimator = SparseLinearRegressor(k=10)
+estimator = SparseLinearRegressor(k=10)  # k is the max number of non-zero coefficients
 estimator.fit(X_train, y_train)
 print(estimator.score(X_test, y_test))
 ```
