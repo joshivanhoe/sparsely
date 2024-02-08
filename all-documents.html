@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  
+  <head>
+    
+    <title>All Documents</title>
+    <meta name="generator" content="pydoctor 23.9.1"> 
+        
+    </meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+  <body>
+    
+
+    
+  
+  <div class="container-fluid">
+
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/joshivanhoe/sparsely" class="projecthome">sparsely</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <div id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
+            <span class="input-group-btn">
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
+
+                  <p>
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
+                </li>
+            </ul>
+
+          </p>
+        </div>
+
+        <div id="search-status"> </div>
+
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+    
+    
+    <div class="container">
+      <h1>All Documents</h1>
+
+       <ul>
+          <li id="sparsely">
+            
+            <div class="fullName">sparsely</div>
+            <div class="url">index.html</div>
+            <div class="type">Package</div>
+            <div class="kind">Package</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The <code><a href="index.html" class="internal-link">sparsely</a></code> module implements scalable sparse linear models for classification and regression.</div>
+          </li><li id="sparsely.base">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base</div>
+            <div class="url">sparsely.base.html</div>
+            <div class="type">Module</div>
+            <div class="kind">Module</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">This module implements an abstract base class for sparse linear models.</div>
+          </li><li id="sparsely.classifier">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier</div>
+            <div class="url">sparsely.classifier.html</div>
+            <div class="type">Module</div>
+            <div class="kind">Module</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">This module implements a sparse linear model for classification problems.</div>
+          </li><li id="sparsely.regressor">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor</div>
+            <div class="url">sparsely.regressor.html</div>
+            <div class="type">Module</div>
+            <div class="kind">Module</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">This module implements a sparse linear model for regression problems.</div>
+          </li><li id="sparsely.tune">
+            
+            <div class="fullName">sparsely<wbr></wbr>.tune</div>
+            <div class="url">sparsely.tune.html</div>
+            <div class="type">Module</div>
+            <div class="kind">Module</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">This module implements a function to tune the sparsity parameter of a linear model using cross-validation.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html</div>
+            <div class="type">Class</div>
+            <div class="kind">Class</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Base class for sparse linear models.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.k">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.k</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#k</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The sparsity parameter (i.e. number of non-zero coefficients). If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then <code><a href="sparsely.base.BaseSparseEstimator.html#k" class="internal-link" title="sparsely.base.BaseSparseEstimator.k">k</a></code> is set to the square root of the number of features, rounded to the nearest integer.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.gamma">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.gamma</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#gamma</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The regularization parameter. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then <code><a href="sparsely.base.BaseSparseEstimator.html#gamma" class="internal-link" title="sparsely.base.BaseSparseEstimator.gamma">gamma</a></code> is set to <code>1 / sqrt(n_samples)</code>.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.normalize">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.normalize</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#normalize</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Whether to normalize the data before fitting the model.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.max_iters">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.max<wbr></wbr>_iters</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#max_iters</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The maximum number of iterations.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.tol">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.tol</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#tol</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The tolerance for the stopping criterion.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.start">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.start</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#start</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The initial guess for the selected features. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.random_state">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.random<wbr></wbr>_state</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#random_state</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Controls the random seed for the initial guess if a user-defined initial guess is not provided.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.verbose">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.verbose</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#verbose</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Whether to enable logging of the search progress.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator._parameter_constraints">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._parameter<wbr></wbr>_constraints</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_parameter_constraints</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Class Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator.__init__">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.__init__</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#__init__</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Model constructor.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.fit">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.fit</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#fit</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Fit the model to the training data.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator._k">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._k</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_k</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._gamma">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._gamma</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_gamma</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._scaler_X">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._scaler_<wbr></wbr>X</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_scaler_X</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._coef">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._coef</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_coef</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator.predict">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.predict</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#predict</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Predict using the fitted model.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.coef">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.coef</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#coef</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Property</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Get the coefficients of the linear model.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.intercept">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.intercept</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#intercept</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Property</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Get the intercept of the linear model.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator._pre_process_y">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._pre<wbr></wbr>_process<wbr></wbr>_y</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_pre_process_y</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._predict">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._predict</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_predict</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._get_coef">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._get<wbr></wbr>_coef</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_get_coef</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._get_intercept">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._get<wbr></wbr>_intercept</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_get_intercept</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._make_callback">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._make<wbr></wbr>_callback</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_make_callback</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.base.BaseSparseEstimator._fit_coef_for_subset">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._fit<wbr></wbr>_coef<wbr></wbr>_for<wbr></wbr>_subset</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_fit_coef_for_subset</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.classifier._sigmoid">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>._sigmoid</div>
+            <div class="url">sparsely.classifier.html#_sigmoid</div>
+            <div class="type">Function</div>
+            <div class="kind">Function</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary">Compute the sigmoid function.</div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html</div>
+            <div class="type">Class</div>
+            <div class="kind">Class</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Sparse linear model for classification.</div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier.predict_proba">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>.predict<wbr></wbr>_proba</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#predict_proba</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Predict using the fitted regressor.</div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._pre_process_y">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._pre<wbr></wbr>_process<wbr></wbr>_y</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_pre_process_y</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._binarizer">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._binarizer</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_binarizer</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._predict">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._predict</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_predict</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary">Perform inference using the fitted model.</div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._get_coef">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._get<wbr></wbr>_coef</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_get_coef</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._get_intercept">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._get<wbr></wbr>_intercept</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_get_intercept</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._make_callback">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._make<wbr></wbr>_callback</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_make_callback</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._fit_coef_for_subset">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._fit<wbr></wbr>_coef<wbr></wbr>_for<wbr></wbr>_subset</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_fit_coef_for_subset</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.classifier.SparseLinearClassifier._intercept">
+            
+            <div class="fullName">sparsely<wbr></wbr>.classifier<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Classifier<wbr></wbr>._intercept</div>
+            <div class="url">sparsely.classifier.SparseLinearClassifier.html#_intercept</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html</div>
+            <div class="type">Class</div>
+            <div class="kind">Class</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Sparse linear model for regression.</div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor._pre_process_y">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor<wbr></wbr>._pre<wbr></wbr>_process<wbr></wbr>_y</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html#_pre_process_y</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary">Normalize the target variable.</div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor._scaler_y">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor<wbr></wbr>._scaler<wbr></wbr>_y</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html#_scaler_y</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor._predict">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor<wbr></wbr>._predict</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html#_predict</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary">Perform inference using the fitted model.</div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor._get_coef">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor<wbr></wbr>._get<wbr></wbr>_coef</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html#_get_coef</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor._get_intercept">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor<wbr></wbr>._get<wbr></wbr>_intercept</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html#_get_intercept</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor._make_callback">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor<wbr></wbr>._make<wbr></wbr>_callback</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html#_make_callback</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.regressor.SparseLinearRegressor._fit_coef_for_subset">
+            
+            <div class="fullName">sparsely<wbr></wbr>.regressor<wbr></wbr>.<wbr></wbr>Sparse<wbr></wbr>Linear<wbr></wbr>Regressor<wbr></wbr>._fit<wbr></wbr>_coef<wbr></wbr>_for<wbr></wbr>_subset</div>
+            <div class="url">sparsely.regressor.SparseLinearRegressor.html#_fit_coef_for_subset</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.tune.Estimator">
+            
+            <div class="fullName">sparsely<wbr></wbr>.tune<wbr></wbr>.<wbr></wbr>Estimator</div>
+            <div class="url">sparsely.tune.html#Estimator</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Type Alias</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
+          </li><li id="sparsely.tune.tune_estimator">
+            
+            <div class="fullName">sparsely<wbr></wbr>.tune<wbr></wbr>.tune<wbr></wbr>_estimator</div>
+            <div class="url">sparsely.tune.html#tune_estimator</div>
+            <div class="type">Function</div>
+            <div class="kind">Function</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Tune the sparsity parameter (i.e. number of non-zero coefficients) of a linear model.</div>
+          </li>
+       </ul>
+    </div>
+  </body>
+</html>
