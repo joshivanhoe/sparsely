@@ -25,13 +25,13 @@ def test_sparse_linear_regressor(
 ):
     X_train, X_test, y_train, y_test, coef = regression_dataset
     predicted = estimator.fit(X_train, y_train).predict(X_test)
-    assert estimator.coef_.shape == (X_train.shape[1],)
+    assert estimator._coef.shape == (X_train.shape[1],)
     assert predicted.shape == (X_test.shape[0],)
     assert estimator.score(X_train, y_train) > 0.95
     assert estimator.score(X_test, y_test) > 0.95
-    assert estimator.coef_.shape == (X_train.shape[1],)
-    assert (~np.isclose(coef, 0)).sum() <= estimator.k_
-    assert (np.isclose(estimator.coef_, 0) == np.isclose(coef, 0)).all()
+    assert estimator._coef.shape == (X_train.shape[1],)
+    assert (~np.isclose(coef, 0)).sum() <= estimator._k
+    assert (np.isclose(estimator._coef, 0) == np.isclose(coef, 0)).all()
 
 
 @pytest.mark.parametrize(

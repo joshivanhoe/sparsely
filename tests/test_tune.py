@@ -36,6 +36,6 @@ def test_tune_estimator(
         estimator = output
     assert estimator.score(X_train, y_train) > 0.8
     assert estimator.score(X_test, y_test) > 0.8
-    assert estimator.coef_.shape == (X_train.shape[1],)
-    assert (~np.isclose(coef, 0)).sum() <= estimator.k_
-    assert (np.isclose(estimator.coef_, 0) == np.isclose(coef, 0)).all()
+    assert estimator._coef.shape == (X_train.shape[1],)
+    assert (~np.isclose(coef, 0)).sum() <= estimator._k
+    assert (np.isclose(estimator._coef, 0) == np.isclose(coef, 0)).all()

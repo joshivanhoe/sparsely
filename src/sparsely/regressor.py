@@ -20,8 +20,8 @@ class SparseLinearRegressor(BaseSparseEstimator, RegressorMixin):
 
     def _pre_process_y(self, y: np.ndarray) -> np.ndarray:
         """Normalize the target variable."""
-        self.scaler_y_ = StandardScaler()
-        return self.scaler_y_.fit_transform(y[:, None])[:, 0]
+        self._scaler_y = StandardScaler()
+        return self._scaler_y.fit_transform(y[:, None])[:, 0]
 
     def _predict(self, X: np.ndarray, proba: bool = False) -> np.ndarray:
         """Perform inference using the fitted model.
@@ -33,20 +33,20 @@ class SparseLinearRegressor(BaseSparseEstimator, RegressorMixin):
         Returns:
             The predicted values. The array will be of shape (n_samples,).
         """
-        predicted = np.dot(X, self.coef_)
-        return self.scaler_y_.inverse_transform(predicted[:, None])[:, 0]
+        predicted = np.dot(X, self._coef)
+        return self._scaler_y.inverse_transform(predicted[:, None])[:, 0]
 
     def _get_coef(self) -> np.ndarray:
         if self.normalize:
-            return self.coef_ / self.scaler_X_.scale_ * self.scaler_y_.scale_
-        return self.coef_
+            return self._coef / self._scaler_X.scale_ * self._scaler_y.scale_
+        return self._coef
 
     def _get_intercept(self) -> float:
         if self.normalize:
             return (
-                self.scaler_y_.mean_
-                - (self.scaler_X_.mean_ / self.scaler_X_.scale_).sum()
-                * self.scaler_y_.scale_
+                self._scaler_y.mean_
+                - (self._scaler_X.mean_ / self._scaler_X.scale_).sum()
+                * self._scaler_y.scale_
             )
         return 0
 
@@ -60,7 +60,7 @@ class SparseLinearRegressor(BaseSparseEstimator, RegressorMixin):
             coef_subset = self._fit_coef_for_subset(X_subset=X_subset, y=y)
             dual_vars = y - np.matmul(X_subset, coef_subset)
             loss = 0.5 * np.dot(y, dual_vars)
-            grad = -0.5 * self.gamma_ * np.matmul(X.T, dual_vars) ** 2
+            grad = -0.5 * self._gamma * np.matmul(X.T, dual_vars) ** 2
             return loss, grad
 
         return func
@@ -68,7 +68,7 @@ class SparseLinearRegressor(BaseSparseEstimator, RegressorMixin):
     def _fit_coef_for_subset(self, X_subset: np.ndarray, y) -> np.ndarray:
         return np.matmul(
             np.linalg.inv(
-                1 / self.gamma_ * np.eye(X_subset.shape[1])
+                1 / self._gamma * np.eye(X_subset.shape[1])
                 + np.matmul(X_subset.T, X_subset)
             ),
             np.matmul(X_subset.T, y),

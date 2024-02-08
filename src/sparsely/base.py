@@ -34,7 +34,7 @@ class BaseSparseEstimator(BaseEstimator, ABC):
         max_iters: The maximum number of iterations.
         tol: The tolerance for the stopping criterion.
         start: The initial guess for the selected features. If `None`, then the initial guess is randomly selected.
-            Providing a good initial guess based on problem-specific knowledge can significantly speed up the search
+            Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.
         random_state: Controls the random seed for the initial guess if a user-defined initial guess is not provided.
         verbose: Whether to enable logging of the search progress.
     """
@@ -97,19 +97,19 @@ class BaseSparseEstimator(BaseEstimator, ABC):
         self._validate_params()
 
         # Set hyperparameters to default values if not specified
-        self.k_ = self.k or int(np.sqrt(X.shape[1]))
-        self.gamma_ = self.gamma or 1 / np.sqrt(X.shape[0])
+        self._k = self.k or int(np.sqrt(X.shape[1]))
+        self._gamma = self.gamma or 1 / np.sqrt(X.shape[0])
 
         # Pre-process training data
         if self.normalize:
-            self.scaler_X_ = StandardScaler()
-            X = self.scaler_X_.fit_transform(X)
+            self._scaler_X = StandardScaler()
+            X = self._scaler_X.fit_transform(X)
         y = self._pre_process_y(y=y)
 
         # Initialize feature selection
         if self.start is None:
             rng = check_random_state(self.random_state)
-            start = rng.choice(X.shape[1], size=self.k_, replace=False)
+            start = rng.choice(X.shape[1], size=self._k, replace=False)
         else:
             start = self.start
 
@@ -124,15 +124,15 @@ class BaseSparseEstimator(BaseEstimator, ABC):
         )
         func = self._make_callback(X=X, y=y)
         model.add_objective_term(var=selected, func=func, grad=True)
-        model.add_linear_constr(sum(selected) <= self.k_)
+        model.add_linear_constr(sum(selected) <= self._k)
         model.add_linear_constr(sum(selected) >= 1)
         model.start = [(selected[i], 1) for i in start]
         model.optimize()
         selected = np.round([model.var_value(var) for var in selected]).astype(bool)
 
         # Compute coefficients
-        self.coef_ = np.zeros(self.n_features_in_)
-        self.coef_[selected] = self._fit_coef_for_subset(X_subset=X[:, selected], y=y)
+        self._coef = np.zeros(self.n_features_in_)
+        self._coef[selected] = self._fit_coef_for_subset(X_subset=X[:, selected], y=y)
 
         return self
 
@@ -148,7 +148,7 @@ class BaseSparseEstimator(BaseEstimator, ABC):
         check_is_fitted(estimator=self)
         self._validate_data(X=X)
         if self.normalize:
-            X = self.scaler_X_.transform(X)
+            X = self._scaler_X.transform(X)
         return self._predict(X=X)
 
     @property

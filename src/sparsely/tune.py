@@ -37,7 +37,7 @@ def tune_estimator(
         X: The training data. The array should be of shape (n_samples, n_features)
         y: The training labels. The array should be of shape (n_samples,).
         estimator: The estimator to tune. This must be a `SparseLinearRegressor` instance (for regression problems) or
-        a `SparseLinearClassifier` instance (for c.
+            a `SparseLinearClassifier` instance (for classification problems).
         k_min: The minimum value for the sparsity parameter (i.e. number of non-zero coefficients).
         k_max: The maximum sparsity for the sparsity parameter (i.e. number of non-zero coefficients). If `None`, then
             this is set to `n_features`.
