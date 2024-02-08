@@ -1,7 +1,8 @@
+"""This module implements a sparse linear model for classification problems."""
+
 from __future__ import annotations
 
 from typing import Callable
-from typing import Union
 
 import numpy as np
 from sklearn.base import ClassifierMixin
@@ -13,17 +14,22 @@ from .base import BaseSparseEstimator
 
 
 def _sigmoid(x: np.ndarray) -> np.ndarray:
+    """Compute the sigmoid function."""
     return 1 / (1 + np.exp(-x))
 
 
 class SparseLinearClassifier(BaseSparseEstimator, ClassifierMixin):
-    """Sparse linear classifier."""
+    """Sparse linear model for classification.
+
+    Currently, only binary classification is supported. The model is trained using the logistic loss function and the
+    L2 regularization penalty. The optimal features are selected using a scalable cutting plane algorithm.
+    """
 
     def predict_proba(self, X: np.ndarray) -> np.ndarray:
         """Predict using the fitted regressor.
 
         Args:
-            X: The data to predict. Array-like of shape `(n_samples, n_features)`.
+            X: The training data. The array should be of shape (n_samples, n_features).
 
         Returns:
             The predicted values. Array of shape `(n_samples,)`.
@@ -39,6 +45,16 @@ class SparseLinearClassifier(BaseSparseEstimator, ClassifierMixin):
         return 2 * self.binarizer_.fit_transform(y).flatten() - 1
 
     def _predict(self, X: np.ndarray, proba: bool = False) -> np.ndarray:
+        """Perform inference using the fitted model.
+
+        Args:
+            X: The training data. The array should be of shape (n_samples, n_features).
+            proba: Whether to return the predicted probabilities. If `False`, then the predicted class labels are
+                returned instead.
+
+        Returns:
+            The predicted values. The array will be of shape (n_samples,).
+        """
         predicted = _sigmoid(np.dot(X, self.coef_) + self.intercept_)
         if proba:
             return np.column_stack([1 - predicted, predicted])
@@ -79,29 +95,3 @@ class SparseLinearClassifier(BaseSparseEstimator, ClassifierMixin):
         estimator = LogisticRegression(C=self.gamma_, penalty="l2").fit(X=X_subset, y=y)
         self.intercept_ = estimator.intercept_[0]
         return estimator.coef_[0, :]
-
-    # def _validate_data(
-    #     self,
-    #     X: Union[str, np.ndarray] = "no_validation",
-    #     y: Union[str, np.ndarray] = "no_validation",
-    #     reset: bool = True,
-    #     validate_separately: bool = False,
-    #     cast_to_ndarray: bool = True,
-    #     **check_params,
-    # ):
-    #     data = super()._validate_data(
-    #         X=X,
-    #         y=y,
-    #         reset=reset,
-    #         validate_separately=validate_separately,
-    #         cast_to_ndarray=cast_to_ndarray,
-    #         **check_params,
-    #     )
-    #     if y != "no_validation":
-    #         n_classes = np.unique(y)
-    #         if len(n_classes) != 2:
-    #             raise NotImplementedError(
-    #                 f"Only binary classification is supported. "
-    #                 f"The number of classes in the provided data is {len(n_classes)}."
-    #             )
-    #     return data

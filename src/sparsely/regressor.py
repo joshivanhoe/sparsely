@@ -1,3 +1,5 @@
+"""This module implements a sparse linear model for regression problems."""
+
 from __future__ import annotations
 
 from typing import Callable
@@ -10,13 +12,27 @@ from .base import BaseSparseEstimator
 
 
 class SparseLinearRegressor(BaseSparseEstimator, RegressorMixin):
-    """Sparse linear regressor."""
+    """Sparse linear model for regression.
+
+    The model is trained using the L2 loss function and the L2 regularization penalty. The optimal features are
+    selected using a scalable cutting plane algorithm.
+    """
 
     def _pre_process_y(self, y: np.ndarray) -> np.ndarray:
+        """Normalize the target variable."""
         self.scaler_y_ = StandardScaler()
         return self.scaler_y_.fit_transform(y[:, None])[:, 0]
 
     def _predict(self, X: np.ndarray, proba: bool = False) -> np.ndarray:
+        """Perform inference using the fitted model.
+
+        Args:
+            X: The training data. The array should be of shape (n_samples, n_features).
+            proba: Not used. Exists for interoperability with the sparse linear classifier.
+
+        Returns:
+            The predicted values. The array will be of shape (n_samples,).
+        """
         predicted = np.dot(X, self.coef_)
         return self.scaler_y_.inverse_transform(predicted[:, None])[:, 0]
 

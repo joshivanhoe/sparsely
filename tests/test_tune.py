@@ -1,20 +1,24 @@
-from sparsely import tune_estimator
 import numpy as np
 import pandas as pd
 import pytest
+
+from sparsely import tune_estimator, SparseLinearRegressor
 
 
 @pytest.mark.parametrize("max_iters_no_improvement", [None, 1])
 @pytest.mark.parametrize("return_search_log", [True, False])
 def test_tune_estimator(
-    dataset: tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray],
+    regression_dataset: tuple[
+        np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray
+    ],
     max_iters_no_improvement: int,
     return_search_log: bool,
 ):
-    X_train, X_test, y_train, y_test, coef = dataset
+    X_train, X_test, y_train, y_test, coef = regression_dataset
     output = tune_estimator(
         X_train,
         y_train,
+        estimator=SparseLinearRegressor(),
         k_min=1,
         k_max=5,
         max_iters_no_improvement=max_iters_no_improvement,

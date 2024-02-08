@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from sklearn.utils.estimator_checks import check_estimator
 
-from sparsely.regressor import SparseLinearRegressor
+from sparsely import SparseLinearRegressor
 
 Dataset = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
@@ -20,13 +20,15 @@ def test_sklearn_compatibility():
         SparseLinearRegressor(gamma=1e-2),
     ],
 )
-def test_sparse_linear_regressor(dataset: Dataset, estimator: SparseLinearRegressor):
-    X_train, X_test, y_train, y_test, coef = dataset
+def test_sparse_linear_regressor(
+    regression_dataset: Dataset, estimator: SparseLinearRegressor
+):
+    X_train, X_test, y_train, y_test, coef = regression_dataset
     predicted = estimator.fit(X_train, y_train).predict(X_test)
     assert estimator.coef_.shape == (X_train.shape[1],)
     assert predicted.shape == (X_test.shape[0],)
-    assert estimator.score(X_train, y_train) > 0.8
-    assert estimator.score(X_test, y_test) > 0.8
+    assert estimator.score(X_train, y_train) > 0.95
+    assert estimator.score(X_test, y_test) > 0.95
     assert estimator.coef_.shape == (X_train.shape[1],)
     assert (~np.isclose(coef, 0)).sum() <= estimator.k_
     assert (np.isclose(estimator.coef_, 0) == np.isclose(coef, 0)).all()
@@ -41,8 +43,8 @@ def test_sparse_linear_regressor(dataset: Dataset, estimator: SparseLinearRegres
     ],
 )
 def test_sparse_linear_regressor_invalid_params(
-    dataset: Dataset, estimator: SparseLinearRegressor
+    regression_dataset: Dataset, estimator: SparseLinearRegressor
 ):
-    X_train, X_test, y_train, y_test, coef = dataset
+    X_train, X_test, y_train, y_test, coef = regression_dataset
     with pytest.raises(ValueError):
         estimator.fit(X_train, y_train)

@@ -1,14 +1,16 @@
+"""This module implements a function to tune the sparsity parameter of a linear model using cross-validation."""
+
 from copy import deepcopy
 from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import cross_validate
-from tqdm.auto import tqdm
 from sklearn.utils.validation import check_scalar
+from tqdm.auto import tqdm
 
-from .regressor import SparseLinearRegressor
 from .classifier import SparseLinearClassifier
+from .regressor import SparseLinearRegressor
 
 Estimator = Union[SparseLinearRegressor, SparseLinearClassifier]
 
@@ -16,7 +18,7 @@ Estimator = Union[SparseLinearRegressor, SparseLinearClassifier]
 def tune_estimator(
     X: np.ndarray,
     y: np.ndarray,
-    estimator: Optional[Estimator] = None,
+    estimator: Estimator,
     k_min: int = 1,
     k_max: int = None,
     step_size: int = 1,
@@ -24,41 +26,30 @@ def tune_estimator(
     cv: int = 3,
     return_search_log: bool = False,
     show_progress_bar: bool = False,
-    is_classifier: bool = False,
 ) -> Union[Estimator, tuple[Estimator, pd.DataFrame]]:
-    """Tune the sparsity parameter (i.e. number of non-zero coefficients) of the linear regressor.
+    """Tune the sparsity parameter (i.e. number of non-zero coefficients) of a linear model.
 
     The sparsity parameter is tuned by performing a grid search over the range [k_min, k_max] with step size
     `step_size`. If the test score does not improve for `max_iters_no_improvement` iterations, then the search is
     terminated early.
 
     Args:
-        X: np.ndarray of shape (n_samples, n_features)
-            The training data.
-        y: np.ndarray of shape (n_samples,)
-            The training labels.
-        estimator: SparseLinearRegressor or `None`, default=`None`
-            The estimator to tune. If `None`, then a default SparseLinearRegressor estimator is used.
-        k_min: int, default=1
-            The minimum value for the sparsity parameter (i.e. number of non-zero coefficients).
-        k_max: int or `None`, default=`None`
-            The maximum sparsity for the sparsity parameter (i.e. number of non-zero coefficients). If `None`, then
+        X: The training data. The array should be of shape (n_samples, n_features)
+        y: The training labels. The array should be of shape (n_samples,).
+        estimator: The estimator to tune. This must be a `SparseLinearRegressor` instance (for regression problems) or
+        a `SparseLinearClassifier` instance (for c.
+        k_min: The minimum value for the sparsity parameter (i.e. number of non-zero coefficients).
+        k_max: The maximum sparsity for the sparsity parameter (i.e. number of non-zero coefficients). If `None`, then
             this is set to `n_features`.
-        step_size: int, default=1
-            The step size for the search. The sparsity parameter is incremented by this value at each iteration. Must
-            be less than or equal to `k_max - k_min`.
-        max_iters_no_improvement: int or `None`, default=None
-            The maximum number of iterations without improvement in the CV test score before the search is terminated.
-            If `None`, then no early stopping is performed.
-        cv: int, default=3
-            The number of cross-validation folds.
-        return_search_log: bool, default=`False`
-            Whether to return the search log.
-        show_progress_bar: bool, default=`False`
-            Whether to show a progress bar.
-        is_classifier: bool, default=`False`
+        step_size: The step size for the search. The sparsity parameter is incremented by this value at each iteration.
+            Must be less than or equal to `k_max - k_min`.
+        max_iters_no_improvement: The maximum number of iterations without improvement in the CV test score before the
+            search is terminated. If `None`, then no early stopping is performed.
+        cv: The number of cross-validation folds.
+        return_search_log:Whether to return the search log.
+        show_progress_bar: Whether to show a progress bar.
 
-    Returns: SparseLinearRegressor or tuple of SparseLinearRegressor and pd.DataFrame
+    Returns:
         The tuned estimator. If `return_search_log` is `True`, then a tuple of the tuned estimator and the search log.
     """
     # Perform validation checks
@@ -98,14 +89,6 @@ def tune_estimator(
     check_scalar(x=cv, name="cv", target_type=int, min_val=2, include_boundaries="left")
 
     # Initialize the search
-    if estimator is None:
-        if is_classifier:
-            estimator = SparseLinearClassifier()
-        else:
-            estimator = SparseLinearRegressor()
-    else:
-        is_classifier = isinstance(estimator, SparseLinearClassifier)
-    estimator = estimator or SparseLinearRegressor()
     best_score = -np.inf
     best_k = None
     n_iters_no_improvement = 0
@@ -121,8 +104,8 @@ def tune_estimator(
             X=X,
             y=y,
             cv=cv,
-            scoring="auc" if is_classifier else "r2",
-            n_jobs=1,
+            scoring="auc" if isinstance(estimator, SparseLinearClassifier) else "r2",
+            n_jobs=1,  # parallelization will interfere with the MIP solver
         )
 
         # Update search and check early termination condition
