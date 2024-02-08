@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sparsely"
-version = "0.0.1"
+version = "1.0.0"
 authors = [
   { name="Joshua Ivanhoe", email="joshua.k.ivanhoe@gmail.com" },
 ]
-description = "Scalable sparse linear regression"
+description = "Scalable sparse linear models in Python"
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.8"
+requires-python = ">=3.9,<3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
