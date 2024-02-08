@@ -3,7 +3,7 @@
 
 
 # ⚡ sparsely ⚡
-`sparsely` is a `sklearn`-compatible Python module for sparse linear regression. It is fast, using a cutting plane algorithm that efficiently scales to thousands of samples and features.
+`sparsely` is a `sklearn`-compatible Python module for sparse linear regression and classification. It is fast, using a cutting plane algorithm that efficiently scales to thousands of samples and features.
 This implementation follows [Bertsimas & Van Parys (2017)](https://arxiv.org/pdf/1709.10029.pdf).
 
 ## Quick start
