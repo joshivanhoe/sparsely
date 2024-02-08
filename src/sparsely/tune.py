@@ -8,12 +8,15 @@ from tqdm.auto import tqdm
 from sklearn.utils.validation import check_scalar
 
 from .regressor import SparseLinearRegressor
+from .classifier import SparseLinearClassifier
+
+Estimator = Union[SparseLinearRegressor, SparseLinearClassifier]
 
 
 def tune_estimator(
     X: np.ndarray,
     y: np.ndarray,
-    estimator: Optional[SparseLinearRegressor] = None,
+    estimator: Optional[Estimator] = None,
     k_min: int = 1,
     k_max: int = None,
     step_size: int = 1,
@@ -21,7 +24,8 @@ def tune_estimator(
     cv: int = 3,
     return_search_log: bool = False,
     show_progress_bar: bool = False,
-) -> Union[SparseLinearRegressor, tuple[SparseLinearRegressor, pd.DataFrame]]:
+    is_classifier: bool = False,
+) -> Union[Estimator, tuple[Estimator, pd.DataFrame]]:
     """Tune the sparsity parameter (i.e. number of non-zero coefficients) of the linear regressor.
 
     The sparsity parameter is tuned by performing a grid search over the range [k_min, k_max] with step size
@@ -52,6 +56,7 @@ def tune_estimator(
             Whether to return the search log.
         show_progress_bar: bool, default=`False`
             Whether to show a progress bar.
+        is_classifier: bool, default=`False`
 
     Returns: SparseLinearRegressor or tuple of SparseLinearRegressor and pd.DataFrame
         The tuned estimator. If `return_search_log` is `True`, then a tuple of the tuned estimator and the search log.
@@ -93,6 +98,13 @@ def tune_estimator(
     check_scalar(x=cv, name="cv", target_type=int, min_val=2, include_boundaries="left")
 
     # Initialize the search
+    if estimator is None:
+        if is_classifier:
+            estimator = SparseLinearClassifier()
+        else:
+            estimator = SparseLinearRegressor()
+    else:
+        is_classifier = isinstance(estimator, SparseLinearClassifier)
     estimator = estimator or SparseLinearRegressor()
     best_score = -np.inf
     best_k = None
@@ -109,7 +121,7 @@ def tune_estimator(
             X=X,
             y=y,
             cv=cv,
-            scoring="r2",
+            scoring="auc" if is_classifier else "r2",
             n_jobs=1,
         )
 
