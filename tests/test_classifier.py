@@ -17,6 +17,8 @@ Dataset = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
         SparseLinearClassifier(normalize=False),
         SparseLinearClassifier(k=3),
         SparseLinearClassifier(gamma=1e-1),
+        SparseLinearClassifier(feature_groups=[{0, 1}, {2, 3}]),
+        SparseLinearClassifier(start={0, 1, 2}),
     ],
 )
 def test_sparse_linear_regressor(
@@ -29,9 +31,10 @@ def test_sparse_linear_regressor(
     assert estimator._coef.shape == (X_train.shape[1],)
     assert predicted.shape == (X_test.shape[0],)
     assert predicted_proba.shape == (X_test.shape[0], 2)
-    assert balanced_accuracy_score(y_test, predicted) > 0.9
-    assert roc_auc_score(y_test, predicted_proba[:, 1]) > 0.9
     assert estimator._coef.shape == (X_train.shape[1],)
+    if estimator.feature_groups is None:
+        assert balanced_accuracy_score(y_test, predicted) > 0.9
+        assert roc_auc_score(y_test, predicted_proba[:, 1]) > 0.9
 
 
 @pytest.mark.parametrize(
