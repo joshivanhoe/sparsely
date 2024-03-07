@@ -247,6 +247,16 @@
             </div>
         
 
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#_validate_params" class="internal-link" title="sparsely.base.BaseSparseEstimator._validate_params">_validate<wbr></wbr>_params</a></code>
+            </div>
+        
+
     </li>
 </ul> 
 
@@ -257,6 +267,16 @@
         <ul>
     
     <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#feature_groups" class="internal-link" title="sparsely.base.BaseSparseEstimator.feature_groups">feature<wbr></wbr>_groups</a></code>
+            </div>
+        
+
+    </li><li class="">
         
         
         
@@ -303,6 +323,16 @@
 
         
             <div class="itemName"><code><a href="#random_state" class="internal-link" title="sparsely.base.BaseSparseEstimator.random_state">random<wbr></wbr>_state</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#solver" class="internal-link" title="sparsely.base.BaseSparseEstimator.solver">solver</a></code>
             </div>
         
 
@@ -484,7 +514,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">BaseSparseEstimator</span>(BaseEstimator, <a href="https://docs.python.org/3/library/abc.html#abc.ABC" class="intersphinx-link">ABC</a>): <a href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L22" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="sparsely.classifier.SparseLinearClassifier.html" class="internal-link">sparsely.classifier.SparseLinearClassifier</a></code>, <code><a href="sparsely.regressor.SparseLinearRegressor.html" class="internal-link">sparsely.regressor.SparseLinearRegressor</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="sparsely.base.BaseSparseEstimator.__init__">BaseSparseEstimator(k, gamma, normalize, max_iters, ...)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">BaseSparseEstimator</span>(BaseEstimator, <a href="https://docs.python.org/3/library/abc.html#abc.ABC" class="intersphinx-link">ABC</a>): <a href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L25" class="sourceLink">(source)</a></code></p><p>Known subclasses: <code><a href="sparsely.classifier.SparseLinearClassifier.html" class="internal-link">sparsely.classifier.SparseLinearClassifier</a></code>, <code><a href="sparsely.regressor.SparseLinearRegressor.html" class="internal-link">sparsely.regressor.SparseLinearRegressor</a></code></p><p>Constructor: <code><a href="#__init__" class="internal-link" title="sparsely.base.BaseSparseEstimator.__init__">BaseSparseEstimator(k, gamma, normalize, max_iters, ...)</a></code></p>
           <p><a href="classIndex.html#sparsely.base.BaseSparseEstimator">View In Hierarchy</a></p>
         </div>
 
@@ -518,6 +548,11 @@ implements the shared functionality.</p>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#feature_groups" class="internal-link" title="sparsely.base.BaseSparseEstimator.feature_groups">feature<wbr></wbr>_groups</a></code></td>
+    <td>Set of features that are mutually exclusive. For example, if <code>feature_groups=[{0, 1}, {2, 3}]</code>, then at most one features 0 and 1 will be selected, and at most one features 2 and 3 will be selected. This can be used to encode prior knowledge about the problem.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#gamma" class="internal-link" title="sparsely.base.BaseSparseEstimator.gamma">gamma</a></code></td>
     <td>The regularization parameter. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then <code><a href="sparsely.base.BaseSparseEstimator.html#gamma" class="internal-link" title="sparsely.base.BaseSparseEstimator.gamma">gamma</a></code> is set to <code>1 / sqrt(n_samples)</code>.</td>
   </tr><tr class="instancevariable">
@@ -543,8 +578,13 @@ implements the shared functionality.</p>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="#solver" class="internal-link" title="sparsely.base.BaseSparseEstimator.solver">solver</a></code></td>
+    <td>The solver to use for the optimization problem. The available options are "CBC" and "GUROBI". Support for the "HiGHS" solver is also planned for a future release.</td>
+  </tr><tr class="instancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="#start" class="internal-link" title="sparsely.base.BaseSparseEstimator.start">start</a></code></td>
-    <td>The initial guess for the selected features. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</td>
+    <td>The initial guess for the selected features. For example if <code>start={0, 1, 2}</code>, then the first three features will be selected. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</td>
   </tr><tr class="instancevariable">
     
     <td>Instance Variable</td>
@@ -595,6 +635,11 @@ implements the shared functionality.</p>
     <td>Method</td>
     <td><code><a href="#_predict" class="internal-link" title="sparsely.base.BaseSparseEstimator._predict">_predict</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method private">
+    
+    <td>Method</td>
+    <td><code><a href="#_validate_params" class="internal-link" title="sparsely.base.BaseSparseEstimator._validate_params">_validate<wbr></wbr>_params</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable private">
     
     <td>Class Variable</td>
@@ -640,8 +685,8 @@ implements the shared functionality.</p>
   <div class="functionHeader">
     
     
-    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, k: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, gamma: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, normalize: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, max_iters: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> = 500, tol: <code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code> = 0.0001, start: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, random_state: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, verbose: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L53">
+    <span class="py-keyword">def</span> <span class="py-defname">__init__</span><span class="function-signature">(self, k: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, gamma: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, normalize: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, max_iters: <code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code> = 500, tol: <code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code> = 0.0001, start: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, feature_groups: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]]]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, solver: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> = <span class="rst-variable-quote">'</span><span class="rst-variable-string">CBC</span><span class="rst-variable-quote">'</span>, random_state: <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code> = <a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a>, verbose: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>)</span>:
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L64">
       
       (source)
     </a>
@@ -653,7 +698,7 @@ implements the shared functionality.</p>
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Model constructor.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">k:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code></td><td class="fieldArgDesc">The value for the <code><a href="#k" class="internal-link" title="sparsely.base.BaseSparseEstimator.k">k</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">gamma:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>]</code></td><td class="fieldArgDesc">The value for the <code><a href="#gamma" class="internal-link" title="sparsely.base.BaseSparseEstimator.gamma">gamma</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">normalize:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#normalize" class="internal-link" title="sparsely.base.BaseSparseEstimator.normalize">normalize</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">max<wbr></wbr>_iters:</span><code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#max_iters" class="internal-link" title="sparsely.base.BaseSparseEstimator.max_iters">max_iters</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">tol:</span><code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#tol" class="internal-link" title="sparsely.base.BaseSparseEstimator.tol">tol</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">start:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]]</code></td><td class="fieldArgDesc">The value for the <code><a href="#start" class="internal-link" title="sparsely.base.BaseSparseEstimator.start">start</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">random<wbr></wbr>_state:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code></td><td class="fieldArgDesc">The value for the <code><a href="#random_state" class="internal-link" title="sparsely.base.BaseSparseEstimator.random_state">random_state</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#verbose" class="internal-link" title="sparsely.base.BaseSparseEstimator.verbose">verbose</a></code> attribute.</td></tr></table></div>
+    <div><p>Model constructor.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">k:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code></td><td class="fieldArgDesc">The value for the <code><a href="#k" class="internal-link" title="sparsely.base.BaseSparseEstimator.k">k</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">gamma:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>]</code></td><td class="fieldArgDesc">The value for the <code><a href="#gamma" class="internal-link" title="sparsely.base.BaseSparseEstimator.gamma">gamma</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">normalize:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#normalize" class="internal-link" title="sparsely.base.BaseSparseEstimator.normalize">normalize</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">max<wbr></wbr>_iters:</span><code><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#max_iters" class="internal-link" title="sparsely.base.BaseSparseEstimator.max_iters">max_iters</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">tol:</span><code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#tol" class="internal-link" title="sparsely.base.BaseSparseEstimator.tol">tol</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">start:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]]</code></td><td class="fieldArgDesc">The value for the <code><a href="#start" class="internal-link" title="sparsely.base.BaseSparseEstimator.start">start</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">feature<wbr></wbr>_groups:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/typing.html#typing.Sequence" class="intersphinx-link">Sequence</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#set" class="intersphinx-link">set</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]]]</code></td><td class="fieldArgDesc">The value for the <code><a href="#feature_groups" class="internal-link" title="sparsely.base.BaseSparseEstimator.feature_groups">feature_groups</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">solver:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#solver" class="internal-link" title="sparsely.base.BaseSparseEstimator.solver">solver</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">random<wbr></wbr>_state:</span><code><a href="https://docs.python.org/3/library/typing.html#typing.Optional" class="intersphinx-link">Optional</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#int" class="intersphinx-link">int</a>]</code></td><td class="fieldArgDesc">The value for the <code><a href="#random_state" class="internal-link" title="sparsely.base.BaseSparseEstimator.random_state">random_state</a></code> attribute.</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">verbose:</span><code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code></td><td class="fieldArgDesc">The value for the <code><a href="#verbose" class="internal-link" title="sparsely.base.BaseSparseEstimator.verbose">verbose</a></code> attribute.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -668,7 +713,7 @@ implements the shared functionality.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">fit</span><span class="function-signature">(self, X: <code>np.ndarray</code>, y: <code>np.ndarray</code>) -&gt; <code><a href="sparsely.base.BaseSparseEstimator.html" class="internal-link" title="sparsely.base.BaseSparseEstimator">BaseSparseEstimator</a></code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L85">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L102">
       
       (source)
     </a>
@@ -695,7 +740,7 @@ implements the shared functionality.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">predict</span><span class="function-signature">(self, X: <code>np.ndarray</code>) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L139">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L168">
       
       (source)
     </a>
@@ -712,6 +757,35 @@ implements the shared functionality.</p>
 </div><div class="baseinstancevariable">
   
   
+  <a name="sparsely.base.BaseSparseEstimator.feature_groups">
+    
+  </a>
+  <a name="feature_groups">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">feature_groups</span> =
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L41">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#feature_groups" title="sparsely.base.BaseSparseEstimator.feature_groups">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>Set of features that are mutually exclusive. For example, if <code>feature_groups=[{0, 1}, {2, 3}]</code>,
+then at most one features 0 and 1 will be selected, and at most one features 2 and 3 will be selected. This
+can be used to encode prior knowledge about the problem.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="sparsely.base.BaseSparseEstimator.gamma">
     
   </a>
@@ -721,7 +795,7 @@ implements the shared functionality.</p>
   <div class="functionHeader">
     
     <span class="py-defname">gamma</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L31">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L34">
       
       (source)
     </a>
@@ -748,7 +822,7 @@ implements the shared functionality.</p>
   <div class="functionHeader">
     
     <span class="py-defname">k</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L29">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L32">
       
       (source)
     </a>
@@ -776,7 +850,7 @@ of the number of features, rounded to the nearest integer.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">max_iters</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L33">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L36">
       
       (source)
     </a>
@@ -803,7 +877,7 @@ of the number of features, rounded to the nearest integer.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">normalize</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L32">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L35">
       
       (source)
     </a>
@@ -830,7 +904,7 @@ of the number of features, rounded to the nearest integer.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">random_state</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L37">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L46">
       
       (source)
     </a>
@@ -848,6 +922,34 @@ of the number of features, rounded to the nearest integer.</p></div>
 </div><div class="baseinstancevariable">
   
   
+  <a name="sparsely.base.BaseSparseEstimator.solver">
+    
+  </a>
+  <a name="solver">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">solver</span> =
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L44">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#solver" title="sparsely.base.BaseSparseEstimator.solver">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p>The solver to use for the optimization problem. The available options are "CBC" and "GUROBI". Support
+for the "HiGHS" solver is also planned for a future release.</p></div>
+    
+  </div>
+</div><div class="baseinstancevariable">
+  
+  
   <a name="sparsely.base.BaseSparseEstimator.start">
     
   </a>
@@ -857,7 +959,7 @@ of the number of features, rounded to the nearest integer.</p></div>
   <div class="functionHeader">
     
     <span class="py-defname">start</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L35">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L38">
       
       (source)
     </a>
@@ -869,8 +971,9 @@ of the number of features, rounded to the nearest integer.</p></div>
   </div>
   <div class="functionBody">
     
-    <div><p>The initial guess for the selected features. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected.
-Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</p></div>
+    <div><p>The initial guess for the selected features. For example if <code>start={0, 1, 2}</code>, then the first three
+features will be selected. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial
+guess based on problem-specific knowledge can significantly speed up the search.</p></div>
     
   </div>
 </div><div class="baseinstancevariable">
@@ -885,7 +988,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     
     <span class="py-defname">tol</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L34">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L37">
       
       (source)
     </a>
@@ -912,7 +1015,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     
     <span class="py-defname">verbose</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L38">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L47">
       
       (source)
     </a>
@@ -939,7 +1042,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">coef</span>: <code>np.ndarray</code> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L154">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L183">
       
       (source)
     </a>
@@ -966,7 +1069,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     @<a href="https://docs.python.org/3/library/functions.html#property" class="intersphinx-link">property</a><br />
     <span class="py-defname">intercept</span>: <code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L160">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L189">
       
       (source)
     </a>
@@ -994,7 +1097,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
     
     @<a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod" class="intersphinx-link">abstractmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">_fit_coef_for_subset</span><span class="function-signature">(self, X_subset: <code>np.ndarray</code>, y: <code>np.ndarray</code>) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L190">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L247">
       
       (source)
     </a>
@@ -1021,7 +1124,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
     
     @<a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod" class="intersphinx-link">abstractmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">_get_coef</span><span class="function-signature">(self) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L174">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L231">
       
       (source)
     </a>
@@ -1048,7 +1151,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
     
     @<a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod" class="intersphinx-link">abstractmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">_get_intercept</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L178">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L235">
       
       (source)
     </a>
@@ -1075,7 +1178,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
     
     @<a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod" class="intersphinx-link">abstractmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">_make_callback</span><span class="function-signature">(self, X: <code>np.ndarray</code>, y: <code>np.ndarray</code>) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a>[<wbr></wbr>[<wbr></wbr>np.ndarray], <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>, <wbr></wbr>np.ndarray]]</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L182">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L239">
       
       (source)
     </a>
@@ -1102,7 +1205,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
     
     @<a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod" class="intersphinx-link">abstractmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">_pre_process_y</span><span class="function-signature">(self, y: <code>np.ndarray</code>) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L166">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L223">
       
       (source)
     </a>
@@ -1129,7 +1232,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
     
     @<a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod" class="intersphinx-link">abstractmethod</a><br />
     <span class="py-keyword">def</span> <span class="py-defname">_predict</span><span class="function-signature">(self, X: <code>np.ndarray</code>, proba: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L170">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L227">
       
       (source)
     </a>
@@ -1141,6 +1244,33 @@ Providing a good initial guess based on problem-specific knowledge can significa
   </div>
   <div class="docstring functionBody">
     <div class="interfaceinfo">overridden in <code><a href="sparsely.classifier.SparseLinearClassifier.html" class="internal-link">sparsely.classifier.SparseLinearClassifier</a></code>, <code><a href="sparsely.regressor.SparseLinearRegressor.html" class="internal-link">sparsely.regressor.SparseLinearRegressor</a></code></div>
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod private">
+  
+  
+  <a name="sparsely.base.BaseSparseEstimator._validate_params">
+    
+  </a>
+  <a name="_validate_params">
+    
+  </a>
+  <div class="functionHeader">
+    
+    
+    <span class="py-keyword">def</span> <span class="py-defname">_validate_params</span><span class="function-signature">(self)</span>:
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L195">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#_validate_params" title="sparsely.base.BaseSparseEstimator._validate_params">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable private">
@@ -1155,7 +1285,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     
     <span class="py-defname">_parameter_constraints</span>: <code><a href="https://docs.python.org/3/library/typing.html#typing.ClassVar" class="intersphinx-link">ClassVar</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>]]</code> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L42">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L51">
       
       (source)
     </a>
@@ -1182,7 +1312,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     
     <span class="py-defname">_coef</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L134">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L163">
       
       (source)
     </a>
@@ -1209,7 +1339,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     
     <span class="py-defname">_gamma</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L101">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L118">
       
       (source)
     </a>
@@ -1236,7 +1366,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     
     <span class="py-defname">_k</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L100">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L117">
       
       (source)
     </a>
@@ -1263,7 +1393,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="functionHeader">
     
     <span class="py-defname">_scaler_X</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/base.py#L105">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/base.py#L122">
       
       (source)
     </a>
@@ -1290,7 +1420,7 @@ Providing a good initial guess based on problem-specific knowledge can significa
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/joshivanhoe/sparsely" class="projecthome">sparsely</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    23.9.1 at 2024-02-13 10:15:32.
+    23.9.1 at 2024-03-07 09:36:39.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 

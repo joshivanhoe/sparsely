@@ -227,7 +227,23 @@
             <div class="type">Attribute</div>
             <div class="kind">Instance Variable</div>
             <div class="privacy">PUBLIC</div>
-            <div class="summary">The initial guess for the selected features. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</div>
+            <div class="summary">The initial guess for the selected features. For example if <code>start={0, 1, 2}</code>, then the first three features will be selected. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.feature_groups">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.feature<wbr></wbr>_groups</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#feature_groups</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">Set of features that are mutually exclusive. For example, if <code>feature_groups=[{0, 1}, {2, 3}]</code>, then at most one features 0 and 1 will be selected, and at most one features 2 and 3 will be selected. This can be used to encode prior knowledge about the problem.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator.solver">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.solver</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#solver</div>
+            <div class="type">Attribute</div>
+            <div class="kind">Instance Variable</div>
+            <div class="privacy">PUBLIC</div>
+            <div class="summary">The solver to use for the optimization problem. The available options are "CBC" and "GUROBI". Support for the "HiGHS" solver is also planned for a future release.</div>
           </li><li id="sparsely.base.BaseSparseEstimator.random_state">
             
             <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>.random<wbr></wbr>_state</div>
@@ -324,6 +340,14 @@
             <div class="kind">Property</div>
             <div class="privacy">PUBLIC</div>
             <div class="summary">Get the intercept of the linear model.</div>
+          </li><li id="sparsely.base.BaseSparseEstimator._validate_params">
+            
+            <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._validate<wbr></wbr>_params</div>
+            <div class="url">sparsely.base.BaseSparseEstimator.html#_validate_params</div>
+            <div class="type">Function</div>
+            <div class="kind">Method</div>
+            <div class="privacy">PRIVATE</div>
+            <div class="summary"><span class="undocumented">Undocumented</span></div>
           </li><li id="sparsely.base.BaseSparseEstimator._pre_process_y">
             
             <div class="fullName">sparsely<wbr></wbr>.base<wbr></wbr>.<wbr></wbr>Base<wbr></wbr>Sparse<wbr></wbr>Estimator<wbr></wbr>._pre<wbr></wbr>_process<wbr></wbr>_y</div>

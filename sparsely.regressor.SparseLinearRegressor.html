@@ -253,6 +253,16 @@
             </div>
         
 
+    </li><li class="private">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="sparsely.base.BaseSparseEstimator.html#_validate_params" class="internal-link" title="sparsely.base.BaseSparseEstimator._validate_params">_validate<wbr></wbr>_params</a></code>
+            </div>
+        
+
     </li>
 </ul> 
 
@@ -276,6 +286,16 @@
         <ul>
     
     <li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="sparsely.base.BaseSparseEstimator.html#feature_groups" class="internal-link" title="sparsely.base.BaseSparseEstimator.feature_groups">feature<wbr></wbr>_groups</a></code>
+            </div>
+        
+
+    </li><li class="">
         
         
         
@@ -322,6 +342,16 @@
 
         
             <div class="itemName"><code><a href="sparsely.base.BaseSparseEstimator.html#random_state" class="internal-link" title="sparsely.base.BaseSparseEstimator.random_state">random<wbr></wbr>_state</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="sparsely.base.BaseSparseEstimator.html#solver" class="internal-link" title="sparsely.base.BaseSparseEstimator.solver">solver</a></code>
             </div>
         
 
@@ -500,7 +530,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">SparseLinearRegressor</span>(<a href="sparsely.base.BaseSparseEstimator.html" class="internal-link" title="sparsely.base.BaseSparseEstimator">BaseSparseEstimator</a>, RegressorMixin): <a href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L14" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="sparsely.base.BaseSparseEstimator.html#__init__" class="internal-link" title="sparsely.base.BaseSparseEstimator.__init__">SparseLinearRegressor(k, gamma, normalize, max_iters, ...)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">SparseLinearRegressor</span>(<a href="sparsely.base.BaseSparseEstimator.html" class="internal-link" title="sparsely.base.BaseSparseEstimator">BaseSparseEstimator</a>, RegressorMixin): <a href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L14" class="sourceLink">(source)</a></code></p><p>Constructor: <code><a href="sparsely.base.BaseSparseEstimator.html#__init__" class="internal-link" title="sparsely.base.BaseSparseEstimator.__init__">SparseLinearRegressor(k, gamma, normalize, max_iters, ...)</a></code></p>
           <p><a href="classIndex.html#sparsely.regressor.SparseLinearRegressor">View In Hierarchy</a></p>
         </div>
 
@@ -577,6 +607,11 @@ selected using a scalable cutting plane algorithm.</p>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="sparsely.base.BaseSparseEstimator.html#feature_groups" class="internal-link" title="sparsely.base.BaseSparseEstimator.feature_groups">feature<wbr></wbr>_groups</a></code></td>
+    <td>Set of features that are mutually exclusive. For example, if <code>feature_groups=[{0, 1}, {2, 3}]</code>, then at most one features 0 and 1 will be selected, and at most one features 2 and 3 will be selected. This can be used to encode prior knowledge about the problem.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="sparsely.base.BaseSparseEstimator.html#gamma" class="internal-link" title="sparsely.base.BaseSparseEstimator.gamma">gamma</a></code></td>
     <td>The regularization parameter. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then <code><a href="sparsely.base.BaseSparseEstimator.html#gamma" class="internal-link" title="sparsely.base.BaseSparseEstimator.gamma">gamma</a></code> is set to <code>1 / sqrt(n_samples)</code>.</td>
   </tr><tr class="baseinstancevariable">
@@ -602,8 +637,13 @@ selected using a scalable cutting plane algorithm.</p>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
+    <td><code><a href="sparsely.base.BaseSparseEstimator.html#solver" class="internal-link" title="sparsely.base.BaseSparseEstimator.solver">solver</a></code></td>
+    <td>The solver to use for the optimization problem. The available options are "CBC" and "GUROBI". Support for the "HiGHS" solver is also planned for a future release.</td>
+  </tr><tr class="baseinstancevariable">
+    
+    <td>Instance Variable</td>
     <td><code><a href="sparsely.base.BaseSparseEstimator.html#start" class="internal-link" title="sparsely.base.BaseSparseEstimator.start">start</a></code></td>
-    <td>The initial guess for the selected features. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</td>
+    <td>The initial guess for the selected features. For example if <code>start={0, 1, 2}</code>, then the first three features will be selected. If <code><a href="https://docs.python.org/3/library/constants.html#None" class="intersphinx-link">None</a></code>, then the initial guess is randomly selected. Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.</td>
   </tr><tr class="baseinstancevariable">
     
     <td>Instance Variable</td>
@@ -624,6 +664,11 @@ selected using a scalable cutting plane algorithm.</p>
     <td>Property</td>
     <td><code><a href="sparsely.base.BaseSparseEstimator.html#intercept" class="internal-link" title="sparsely.base.BaseSparseEstimator.intercept">intercept</a></code></td>
     <td>Get the intercept of the linear model.</td>
+  </tr><tr class="basemethod private">
+    
+    <td>Method</td>
+    <td><code><a href="sparsely.base.BaseSparseEstimator.html#_validate_params" class="internal-link" title="sparsely.base.BaseSparseEstimator._validate_params">_validate<wbr></wbr>_params</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="baseclassvariable private">
     
     <td>Class Variable</td>
@@ -670,7 +715,7 @@ selected using a scalable cutting plane algorithm.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_fit_coef_for_subset</span><span class="function-signature">(self, X_subset: <code>np.ndarray</code>, y) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L68">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L68">
       
       (source)
     </a>
@@ -697,7 +742,7 @@ selected using a scalable cutting plane algorithm.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_coef</span><span class="function-signature">(self) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L39">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L39">
       
       (source)
     </a>
@@ -724,7 +769,7 @@ selected using a scalable cutting plane algorithm.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_get_intercept</span><span class="function-signature">(self) -&gt; <code><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a></code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L44">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L44">
       
       (source)
     </a>
@@ -751,7 +796,7 @@ selected using a scalable cutting plane algorithm.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_make_callback</span><span class="function-signature">(self, X: <code>np.ndarray</code>, y: <code>np.ndarray</code>) -&gt; <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable" class="intersphinx-link">Callable</a>[<wbr></wbr>[<wbr></wbr>np.ndarray], <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/functions.html#float" class="intersphinx-link">float</a>, <wbr></wbr>np.ndarray]]</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L53">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L53">
       
       (source)
     </a>
@@ -778,7 +823,7 @@ selected using a scalable cutting plane algorithm.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_pre_process_y</span><span class="function-signature">(self, y: <code>np.ndarray</code>) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L21">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L21">
       
       (source)
     </a>
@@ -805,7 +850,7 @@ selected using a scalable cutting plane algorithm.</p>
     
     
     <span class="py-keyword">def</span> <span class="py-defname">_predict</span><span class="function-signature">(self, X: <code>np.ndarray</code>, proba: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> = <a href="https://docs.python.org/3/library/constants.html#False" class="intersphinx-link">False</a>) -&gt; <code>np.ndarray</code></span>:
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L26">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L26">
       
       (source)
     </a>
@@ -831,7 +876,7 @@ selected using a scalable cutting plane algorithm.</p>
   <div class="functionHeader">
     
     <span class="py-defname">_scaler_y</span> =
-    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/545dacd9a57ba26213fc970c9235a623ad259941/src/sparsely/regressor.py#L23">
+    <a class="sourceLink" href="https://github.com/joshivanhoe/sparsely/tree/7bc55f9ea98f286d4eb61db2c6d1cb775138b0c8/src/sparsely/regressor.py#L23">
       
       (source)
     </a>
@@ -858,7 +903,7 @@ selected using a scalable cutting plane algorithm.</p>
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/joshivanhoe/sparsely" class="projecthome">sparsely</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    23.9.1 at 2024-02-13 10:15:32.
+    23.9.1 at 2024-03-07 09:36:39.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
