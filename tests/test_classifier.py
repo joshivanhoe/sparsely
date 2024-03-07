@@ -43,11 +43,15 @@ def test_sparse_linear_regressor(
         SparseLinearClassifier(k=0),
         SparseLinearClassifier(k=11),
         SparseLinearClassifier(gamma=-1e-2),
+        SparseLinearClassifier(start={0, 1, 1000}),
+        SparseLinearClassifier(feature_groups=[{-1, 0, 1}]),
+        SparseLinearClassifier(feature_groups=[{0, 1, 1000}]),
+        SparseLinearClassifier(feature_groups=[[0, 0, 1]]),
     ],
 )
 def test_sparse_linear_regressor_invalid_params(
     classification_dataset: Dataset, estimator: SparseLinearClassifier
 ):
     X_train, X_test, y_train, y_test = classification_dataset
-    with pytest.raises(ValueError):
+    with pytest.raises((ValueError, TypeError)):
         estimator.fit(X_train, y_train)

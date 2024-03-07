@@ -19,7 +19,7 @@ from sklearn.exceptions import FitFailedWarning
 from sklearn.preprocessing import StandardScaler
 from sklearn.utils import check_random_state
 from sklearn.utils._param_validation import Interval, StrOptions
-from sklearn.utils.validation import check_is_fitted
+from sklearn.utils.validation import check_is_fitted, check_scalar
 
 
 class BaseSparseEstimator(BaseEstimator, ABC):
@@ -36,10 +36,14 @@ class BaseSparseEstimator(BaseEstimator, ABC):
         normalize: Whether to normalize the data before fitting the model.
         max_iters: The maximum number of iterations.
         tol: The tolerance for the stopping criterion.
-        start: The initial guess for the selected features. If `None`, then the initial guess is randomly selected.
-            Providing a good initial guess based on problem-specific knowledge can significantly speed up the search.
-        feature_groups: A list of sets, where each set contains the indices of features that are mutually exclusive.
-        solver: The solver to use for the optimization problem. The available options are "HiGHS", "CBC", and "GUROBI".
+        start: The initial guess for the selected features. For example if `start={0, 1, 2}`, then the first three
+            features will be selected. If `None`, then the initial guess is randomly selected. Providing a good initial
+            guess based on problem-specific knowledge can significantly speed up the search.
+        feature_groups: Set of features that are mutually exclusive. For example, if `feature_groups=[{0, 1}, {2, 3}]`,
+            then at most one features 0 and 1 will be selected, and at most one features 2 and 3 will be selected. This
+            can be used to encode prior knowledge about the problem.
+        solver: The solver to use for the optimization problem. The available options are "CBC" and "GUROBI". Support
+            for the "HiGHS" solver is also planned for a future release.
         random_state: Controls the random seed for the initial guess if a user-defined initial guess is not provided.
         verbose: Whether to enable logging of the search progress.
     """
@@ -66,7 +70,7 @@ class BaseSparseEstimator(BaseEstimator, ABC):
         tol: float = 1e-4,
         start: Optional[set[int]] = None,
         feature_groups: Optional[Sequence[set[int]]] = None,
-        solver: str = "HiGHS",
+        solver: str = "CBC",
         random_state: Optional[int] = None,
         verbose: bool = False,
     ):
@@ -187,6 +191,34 @@ class BaseSparseEstimator(BaseEstimator, ABC):
         """Get the intercept of the linear model."""
         check_is_fitted(estimator=self)
         return self._get_intercept()
+
+    def _validate_params(self):
+        super()._validate_params()
+        if self.start is not None:
+            for i in self.start:
+                check_scalar(
+                    x=i,
+                    name="start",
+                    target_type=int,
+                    min_val=0,
+                    max_val=self.n_features_in_,
+                    include_boundaries="both",
+                )
+        if self.feature_groups is not None:
+            for group in self.feature_groups:
+                if not isinstance(group, set):
+                    raise TypeError(
+                        f"Each feature group must provided as a set, not type '{type(group)}'."
+                    )
+                for i in group:
+                    check_scalar(
+                        x=i,
+                        name="start",
+                        target_type=int,
+                        min_val=0,
+                        max_val=self.n_features_in_,
+                        include_boundaries="both",
+                    )
 
     @abstractmethod
     def _pre_process_y(self, y: np.ndarray) -> np.ndarray:
