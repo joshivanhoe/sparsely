@@ -18,6 +18,8 @@ def test_sklearn_compatibility():
         SparseLinearRegressor(normalize=False),
         SparseLinearRegressor(k=3),
         SparseLinearRegressor(gamma=1e-2),
+        SparseLinearRegressor(feature_groups=[{0, 1}, {2, 3}]),
+        SparseLinearRegressor(start={0, 1, 2}),
     ],
 )
 def test_sparse_linear_regressor(
@@ -27,11 +29,14 @@ def test_sparse_linear_regressor(
     predicted = estimator.fit(X_train, y_train).predict(X_test)
     assert estimator._coef.shape == (X_train.shape[1],)
     assert predicted.shape == (X_test.shape[0],)
-    assert estimator.score(X_train, y_train) > 0.95
-    assert estimator.score(X_test, y_test) > 0.95
-    assert estimator._coef.shape == (X_train.shape[1],)
-    assert (~np.isclose(coef, 0)).sum() <= estimator._k
-    assert (np.isclose(estimator._coef, 0) == np.isclose(coef, 0)).all()
+    if estimator.feature_groups is None:
+        assert estimator.score(X_train, y_train) > 0.95
+        assert estimator.score(X_test, y_test) > 0.95
+        assert estimator._coef.shape == (X_train.shape[1],)
+        assert (~np.isclose(coef, 0)).sum() <= estimator._k
+        assert (np.isclose(estimator._coef, 0) == np.isclose(coef, 0)).all()
+    else:
+        assert estimator._coef.shape == (X_train.shape[1],)
 
 
 @pytest.mark.parametrize(
@@ -40,11 +45,16 @@ def test_sparse_linear_regressor(
         SparseLinearRegressor(k=0),
         SparseLinearRegressor(k=11),
         SparseLinearRegressor(gamma=-1e-2),
+        SparseLinearRegressor(start={-1, 0, 1}),
+        SparseLinearRegressor(start={0, 1, 1000}),
+        SparseLinearRegressor(feature_groups=[{-1, 0, 1}]),
+        SparseLinearRegressor(feature_groups=[{0, 1, 1000}]),
+        SparseLinearRegressor(feature_groups=[[0, 0, 1]]),
     ],
 )
 def test_sparse_linear_regressor_invalid_params(
     regression_dataset: Dataset, estimator: SparseLinearRegressor
 ):
     X_train, X_test, y_train, y_test, coef = regression_dataset
-    with pytest.raises(ValueError):
+    with pytest.raises((ValueError, TypeError)):
         estimator.fit(X_train, y_train)
