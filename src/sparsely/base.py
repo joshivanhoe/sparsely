@@ -9,7 +9,7 @@ from __future__ import annotations
 import warnings
 from abc import ABC, abstractmethod
 from numbers import Real, Integral
-from typing import Optional, Callable, ClassVar, Sequence
+from typing import Callable, ClassVar, Sequence
 
 import numpy as np
 from halfspace import Model
@@ -40,8 +40,8 @@ class BaseSparseEstimator(BaseEstimator, ABC):
             features will be selected. If `None`, then the initial guess is randomly selected. Providing a good initial
             guess based on problem-specific knowledge can significantly speed up the search.
         feature_groups: Set of features that are mutually exclusive. For example, if `feature_groups=[{0, 1}, {2, 3}]`,
-            then at most one features 0 and 1 will be selected, and at most one features 2 and 3 will be selected. This
-            can be used to encode prior knowledge about the problem.
+            then at most one of the features 0 and 1 will be selected, and at most one features 2 and 3 will be
+            selected. This can be used to encode prior knowledge about the problem.
         solver: The solver to use for the optimization problem. The available options are "CBC" and "GUROBI". Support
             for the "HiGHS" solver is also planned for a future release.
         random_state: Controls the random seed for the initial guess if a user-defined initial guess is not provided.
@@ -63,15 +63,15 @@ class BaseSparseEstimator(BaseEstimator, ABC):
 
     def __init__(
         self,
-        k: Optional[int] = None,
-        gamma: Optional[float] = None,
+        k: int | None = None,
+        gamma: float | None = None,
         normalize: bool = True,
         max_iters: int = 500,
         tol: float = 1e-4,
-        start: Optional[set[int]] = None,
-        feature_groups: Optional[Sequence[set[int]]] = None,
+        start: set[int] | None = None,
+        feature_groups: Sequence[set[int]] | None = None,
         solver: str = "CBC",
-        random_state: Optional[int] = None,
+        random_state: int | None = None,
         verbose: bool = False,
     ):
         """Model constructor.

@@ -1,7 +1,6 @@
 """This module implements a function to tune the sparsity parameter of a linear model using cross-validation."""
 
 from copy import deepcopy
-from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -12,7 +11,7 @@ from tqdm.auto import tqdm
 from .classifier import SparseLinearClassifier
 from .regressor import SparseLinearRegressor
 
-Estimator = Union[SparseLinearRegressor, SparseLinearClassifier]
+Estimator = SparseLinearRegressor | SparseLinearClassifier
 
 
 def tune_estimator(
@@ -22,11 +21,11 @@ def tune_estimator(
     k_min: int = 1,
     k_max: int = None,
     step_size: int = 1,
-    max_iters_no_improvement: Optional[int] = None,
+    max_iters_no_improvement: int | None = None,
     cv: int = 3,
     return_search_log: bool = False,
     show_progress_bar: bool = False,
-) -> Union[Estimator, tuple[Estimator, pd.DataFrame]]:
+) -> Estimator | tuple[Estimator, pd.DataFrame]:
     """Tune the sparsity parameter (i.e. number of non-zero coefficients) of a linear model.
 
     The sparsity parameter is tuned by performing a grid search over the range [k_min, k_max] with step size
