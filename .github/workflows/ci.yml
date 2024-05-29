@@ -30,7 +30,7 @@ jobs:
       run: poetry install
 
     - name: Format with black
-      run: poetry run black
+      run: poetry run black ./src
 
     - name: Lint with flake8
       run: poetry run flake8
