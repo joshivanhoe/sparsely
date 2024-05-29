@@ -2,3 +2,5 @@
 from .classifier import SparseLinearClassifier
 from .regressor import SparseLinearRegressor
 from .tune import tune_estimator
+
+__all__ = ["SparseLinearClassifier", "SparseLinearRegressor", "tune_estimator"]
