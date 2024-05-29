@@ -50,6 +50,6 @@ def test_sparse_linear_regressor(
 def test_sparse_linear_regressor_invalid_params(
     classification_dataset: Dataset, estimator: SparseLinearClassifier
 ):
-    X_train, X_test, y_train, y_test = classification_dataset
+    X_train, X_test, y_train, y_test, _ = classification_dataset
     with pytest.raises((ValueError, TypeError)):
         estimator.fit(X_train, y_train)
