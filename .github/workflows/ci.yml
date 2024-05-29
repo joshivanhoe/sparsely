@@ -29,11 +29,11 @@ jobs:
     - name: Install dependencies
       run: poetry install
 
-    - name: Lint with flake8
-      run: poetry run flake8
-
     - name: Format with black
       run: poetry run black
+
+    - name: Lint with flake8
+      run: poetry run flake8
 
     - name: Run tests
       run: poetry run pytest --cov
