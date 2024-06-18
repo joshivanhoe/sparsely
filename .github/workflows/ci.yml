@@ -1,4 +1,4 @@
-name: CI
+name: CI workflow
 
 on:
   push:
@@ -36,4 +36,4 @@ jobs:
       run: poetry run flake8 --max-line-length 120
 
     - name: Run tests
-      run: poetry run pytest --cov
+      run: poetry run pytest --cov=src

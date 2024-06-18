@@ -19,7 +19,7 @@ def tune_estimator(
     y: np.ndarray,
     estimator: Estimator,
     k_min: int = 1,
-    k_max: int = None,
+    k_max: int | None = None,
     step_size: int = 1,
     max_iters_no_improvement: int | None = None,
     cv: int = 3,
