@@ -39,8 +39,7 @@ Clone the repository using `git`:
 git clone https://github.com/joshivanhoe/sparsely
 ````
 
-Create a fresh virtual environment using `venv` or `conda`.
-Activate the environment and navigate to the cloned `halfspace` directory.
+Create a fresh virtual environment, activate it and navigate to the cloned `sparsely` directory.
 Install a locally editable version of the package using `pip`:
 
 ```bash

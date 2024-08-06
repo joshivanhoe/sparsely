@@ -2,9 +2,8 @@ import numpy as np
 import pytest
 from sklearn.utils.estimator_checks import check_estimator
 
+from conftest import Dataset
 from sparsely import SparseLinearRegressor
-
-Dataset = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
 
 def test_sklearn_compatibility():

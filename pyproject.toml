@@ -1,27 +1,45 @@
-[build-system]
-requires = ["setuptools >= 61.0"]
-build-backend = "setuptools.build_meta"
-
-[project]
+[tool.poetry]
 name = "sparsely"
-version = "1.1.0"
-authors = [
-  { name="Joshua Ivanhoe", email="joshua.k.ivanhoe@gmail.com" },
-]
+version = "1.1.2"
 description = "Scalable sparse linear models in Python"
+license ="MIT"
+authors = [
+    "Joshua Ivanhoe <joshua.k.ivanhoe@gmail.com>"
+]
 readme = "README.md"
-license = {file = "LICENSE"}
-requires-python = ">=3.9,<3.12"
+repository = "https://github.com/joshivanhoe/sparsely"
+documentation = "https://joshivanhoe.github.io/sparsely/"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dynamic = ["dependencies"]
+packages = [
+    { include = "sparsely", from = "src" }
+]
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+halfspace-optimizer = ">=0.1.0"
+scikit-learn = ">=1.3.2"
+tqdm = ">=4.66.1"
 
-[project.urls]
-Homepage = "https://github.com/joshivanhoe/sparsely"
-Issues = "https://github.com/joshivanhoe/sparsely/issues"
+[tool.poetry.group.dev.dependencies]
+black = "*"
+mypy = "*"
+flake8 = "*"
+pre-commit = "*"
+tomli = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-cov = "*"
+
+[tool.poetry.group.docs]
+optional = true
+[tool.poetry.group.docs.dependencies]
+sphinx = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

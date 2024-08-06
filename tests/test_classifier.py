@@ -1,10 +1,8 @@
-import numpy as np
 import pytest
 from sklearn.metrics import roc_auc_score, balanced_accuracy_score
 
+from conftest import Dataset
 from sparsely import SparseLinearClassifier
-
-Dataset = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
 
 # TODO: add tests for sklearn compatibility - requires support for multi-class problems
@@ -24,7 +22,7 @@ Dataset = tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 def test_sparse_linear_regressor(
     classification_dataset: Dataset, estimator: SparseLinearClassifier
 ):
-    X_train, X_test, y_train, y_test = classification_dataset
+    X_train, X_test, y_train, y_test, _ = classification_dataset
     estimator.fit(X_train, y_train)
     predicted = estimator.predict(X_test)
     predicted_proba = estimator.predict_proba(X_test)
@@ -52,6 +50,6 @@ def test_sparse_linear_regressor(
 def test_sparse_linear_regressor_invalid_params(
     classification_dataset: Dataset, estimator: SparseLinearClassifier
 ):
-    X_train, X_test, y_train, y_test = classification_dataset
+    X_train, X_test, y_train, y_test, _ = classification_dataset
     with pytest.raises((ValueError, TypeError)):
         estimator.fit(X_train, y_train)
